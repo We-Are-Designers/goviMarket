@@ -25,7 +25,7 @@ async function api(path, opts) {
 function showSignin(show) {
   $("signin").hidden = !show;
   document.querySelectorAll(".pane").forEach((p) => (p.style.display = show ? "none" : ""));
-  $("tabs").style.visibility = show ? "hidden" : "";
+  $("tabs").classList.toggle("off", show);
 }
 function signIn(u) {
   if (!u) return;
@@ -138,7 +138,7 @@ async function loadOutlook() {
   $("outlook-chips").innerHTML = f.crops.filter((c) => c.signal && c.signal !== "steady").map((c) =>
     `<span class="${cls[c.signal]}">${TREND[c.signal].split(" ")[0]} ${esc(cname(c.crop))} ${c.change_pct > 0 ? "+" : ""}${Math.round(c.change_pct)}%</span>`).join("");
   $("outlook-text").textContent = rising.length ? `Rising crops cost more next week. A weekly order locks in today's supply.` : "Prices look steady next week.";
-  $("outlook-src").textContent = /synthetic/i.test(f.summary || "") ? "Forecast from demo price history until HARTI data is loaded." : "";
+  $("outlook-src").textContent = /synthetic/i.test(f.summary || "") ? "Forecast from sample price history until HARTI data is loaded." : "";
 }
 
 async function loadOrders() {
